@@ -4,48 +4,47 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.daily_plans_program_b.dto.ReminderDto;
-import uz.pdp.daily_plans_program_b.dto.TaskDto;
 import uz.pdp.daily_plans_program_b.security.entity.User;
+import uz.pdp.daily_plans_program_b.service.ReminderTaskService;
 import uz.pdp.daily_plans_program_b.service.TaskService;
 
 import java.util.UUID;
 
-@RequestMapping("/api/task")
-@Controller
+@RestController
+@RequestMapping("/api/reminder-task")
 @RequiredArgsConstructor
-public class TaskController {
-
+public class ReminderTaskController {
+    private final ReminderTaskService reminderTaskService;
     private final TaskService taskService;
 
+
     @GetMapping
-    public HttpEntity<?> getAllTask() {
-        return ResponseEntity.ok(taskService.getAll());
+    public HttpEntity<?> getAllTaskReminders() {
+        return ResponseEntity.ok(reminderTaskService.getAll());
     }
 
-    @GetMapping("{taskId}")
-    public HttpEntity<?> getTask(@PathVariable UUID taskId) {
-        return ResponseEntity.ok(taskService.getTask(taskId));
+    @GetMapping("{reminderTaskId}")
+    public HttpEntity<?> getTaskReminder(@PathVariable UUID reminderTaskId) {
+        return ResponseEntity.ok(reminderTaskService.getTaskReminder(reminderTaskId));
     }
 
 
     @PostMapping
-    public HttpEntity<?> addTask(@RequestBody TaskDto taskDto, @AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(taskService.saveTask(taskDto, user));
+    public HttpEntity<?> addTaskReminder(@RequestBody ReminderDto reminderDto, @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(reminderTaskService.saveTaskReminder(reminderDto.getTaskDto(),reminderDto, user));
     }
 
-    @DeleteMapping({"{taskId}"})
-    public HttpEntity<?> deleteTask(@PathVariable UUID taskId) {
-        taskService.delete(taskId);
-        return ResponseEntity.ok("Successfully deleted task");
+    @DeleteMapping({"{reminderTaskId}"})
+    public HttpEntity<?> deleteTaskReminder(@PathVariable UUID reminderTaskId) {
+        reminderTaskService.delete(reminderTaskId);
+        return ResponseEntity.ok("Deleted reminder task id: " + reminderTaskId);
     }
 
-    @PutMapping("{taskId}")
-    public HttpEntity<?> updateTask(@RequestBody TaskDto taskDto, @PathVariable UUID taskId) {
-        taskService.update(taskDto, taskId);
-        return ResponseEntity.ok("Successfully updated task");
+    @PutMapping("{reminderTaskId}")
+    public HttpEntity<?> updateTaskReminder(@RequestBody ReminderDto reminderDto, @PathVariable UUID reminderTaskId) {
+        return ResponseEntity.ok(reminderTaskService.update(reminderDto, reminderTaskId));
     }
 
 
@@ -119,12 +118,4 @@ public class TaskController {
     }
 
 //    TasksCheckPriorityEnd
-
-    @PostMapping("reminder/{taskId}")
-    public HttpEntity<Void> reminderTask(@PathVariable UUID taskId, @AuthenticationPrincipal User user, @RequestBody ReminderDto reminderDto) {
-        taskService.addReminderTask(taskId,user,reminderDto);
-        return ResponseEntity.noContent().build();
-    }
-
-
 }

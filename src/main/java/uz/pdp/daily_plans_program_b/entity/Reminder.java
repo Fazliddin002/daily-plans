@@ -12,18 +12,18 @@ import java.util.UUID;
 @Entity
 @Table(name = "reminders")
 public class Reminder {
+//    Eslatma
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "task_id", nullable = false)
     private Task task;
 
     @Column(nullable = false)
     private LocalDateTime reminderTime;
-
+    private String reminderText;
     private boolean isSent;
 
 }

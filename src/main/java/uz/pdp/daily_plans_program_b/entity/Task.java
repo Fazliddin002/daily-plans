@@ -41,6 +41,8 @@ public class Task {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    private LocalDateTime startDate;
+
     private LocalDateTime endDate;
 
     private LocalDateTime completedAt;

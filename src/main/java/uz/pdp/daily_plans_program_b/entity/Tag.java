@@ -1,14 +1,14 @@
 package uz.pdp.daily_plans_program_b.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import uz.pdp.daily_plans_program_b.security.entity.User;
 
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "tags")
 public class Tag {
@@ -20,7 +20,6 @@ public class Tag {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
 }

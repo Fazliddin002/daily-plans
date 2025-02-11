@@ -15,13 +15,10 @@ public class TaskTag {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID id;
-
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "task_id", nullable = false)
     private Task task;
 
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "tag_id", nullable = false)
     private Tag tag;
 
 }

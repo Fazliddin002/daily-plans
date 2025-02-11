@@ -1,10 +1,7 @@
 package uz.pdp.daily_plans_program_b.security.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import uz.pdp.daily_plans_program_b.security.entity.enums.RoleName;
 
@@ -14,6 +11,7 @@ import uz.pdp.daily_plans_program_b.security.entity.enums.RoleName;
 @Setter
 @Entity
 @Table(name = "roles")
+@Builder
 public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +20,7 @@ public class Role implements GrantedAuthority {
 
     @Enumerated(EnumType.STRING)
     private RoleName roleName;
+
 
     @Override
     public String getAuthority() {

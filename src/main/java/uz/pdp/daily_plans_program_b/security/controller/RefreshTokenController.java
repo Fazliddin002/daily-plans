@@ -6,7 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uz.pdp.daily_plans_program_b.repo.UserRepository;
+import uz.pdp.daily_plans_program_b.security.repo.UserRepository;
 import uz.pdp.daily_plans_program_b.security.entity.User;
 import uz.pdp.daily_plans_program_b.security.service.JwtUtils;
 
